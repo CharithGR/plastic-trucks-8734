@@ -1,9 +1,14 @@
 package com.masai.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +26,8 @@ public class Travels {
 	private String agentName;
 	private String address;
 	private String contact;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "travelBus")
+	List<Bus> listOfBusOfTravels=new ArrayList<>();
 }

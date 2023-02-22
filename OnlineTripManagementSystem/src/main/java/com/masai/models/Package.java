@@ -1,9 +1,15 @@
 package com.masai.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +28,13 @@ public class Package {
 	private String packageDescription;
 	private String packageType;
 	private double packageCost;
+	private String paymentDetails;
 	
-	//Payment
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Hotel packageHotel;
+	
+	
+	@OneToMany(cascade =CascadeType.ALL,mappedBy = "ticketPackage")
+	List<TicketDetails> listOfTicketDeatils=new ArrayList<>();
+	
 }
