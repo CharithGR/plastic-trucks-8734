@@ -22,33 +22,35 @@ public class PackageController {
 	@Autowired
 	PackageService packageService;
 	
-	@PostMapping("/package")
-	public ResponseEntity<Package> addPackageHandler(Package pac){
+	@PostMapping("/package/{uuid}")
+	public ResponseEntity<Package> addPackageHandler(Package pac, @PathVariable("uuid") String uuid){
 		
-		Package newPac = packageService.addPackage(pac);
+		Package newPac = packageService.addPackage(pac, uuid);
 		
 		return new ResponseEntity<Package>(newPac, HttpStatus.CREATED);
 		
 	}
 	
-	@DeleteMapping("/package/{packageId}")
-	public ResponseEntity<Package> deletePackageHandler(@PathVariable("packageId") Integer packageId){
+	@DeleteMapping("/package/{packageId}/{uuid}")
+	public ResponseEntity<Package> deletePackageHandler(@PathVariable("packageId") Integer packageId,
+														@PathVariable("uuid") String uuid){
 	
-	Package delPackage = packageService.deletePackage(packageId);
+	Package delPackage = packageService.deletePackage(packageId, uuid);
 	
 	return new ResponseEntity<Package>(delPackage, HttpStatus.OK);
 	}
 	
-	@GetMapping("/package/{packageId}")
-	public ResponseEntity<Package> getPackageHandler(@PathVariable("packageId") Integer packageId) {
+	@GetMapping("/package/{packageId}/{uuid}")
+	public ResponseEntity<Package> getPackageHandler(@PathVariable("packageId") Integer packageId,
+														@PathVariable("uuid") String uuid) {
 		
-		Package package1 = packageService.searchPackage(packageId);
+		Package package1 = packageService.searchPackage(packageId, uuid);
 		return new ResponseEntity<Package>(package1, HttpStatus.OK);
 	}
 	
-	@GetMapping("/package")
-	public ResponseEntity<List<Package>> getAllPackageHandler(){
-		List<Package> packages = packageService.viewAllPackage();
+	@GetMapping("/package/{uuid}")
+	public ResponseEntity<List<Package>> getAllPackageHandler(@PathVariable("uuid") String uuid){
+		List<Package> packages = packageService.viewAllPackage(uuid);
 		return new ResponseEntity<List<Package>>(packages, HttpStatus.OK);
 	}
 }
