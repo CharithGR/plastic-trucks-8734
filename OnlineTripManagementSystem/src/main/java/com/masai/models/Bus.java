@@ -1,5 +1,7 @@
 package com.masai.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +26,12 @@ public class Bus {
 	private Integer capacity;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Bus travelBus;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Route routeOfBus;
 	
 }

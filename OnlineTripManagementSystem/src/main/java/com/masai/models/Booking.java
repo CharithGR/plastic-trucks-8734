@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Booking {
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Customer bookingUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookedTickets")

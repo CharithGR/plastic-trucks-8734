@@ -3,6 +3,8 @@ package com.masai.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class User {
 	
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "adminUser")
+	@JsonIgnore
 	private Admin admin;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customerUser")
