@@ -1,3 +1,4 @@
+
 package com.masai.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,11 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reportId;
+	
+	//	@NotNull(message = "field cannot be empty")
 	private String reportName;
+	
+	//	@NotNull(message = "field cannot be empty")
 	private String reportType;
 	
 	@ManyToOne
@@ -29,4 +35,3 @@ public class Report {
 	
 	
 }
-

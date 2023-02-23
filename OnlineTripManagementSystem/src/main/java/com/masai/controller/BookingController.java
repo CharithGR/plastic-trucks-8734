@@ -23,30 +23,32 @@ public class BookingController {
 	@Autowired
 	BookingService bookingService;
 	
-	@PostMapping("/bookings")
-	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking){
-		Booking newbooking = bookingService.makeBooking(booking);
+	@PostMapping("/bookings/{uuid}")
+	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking, @PathVariable("uuid") String uuid){
+		Booking newbooking = bookingService.makeBooking(booking,uuid);
 		return new ResponseEntity<Booking>(newbooking, HttpStatus.CREATED);
 		
 		
 	}
 	
-	@DeleteMapping("/bookings/{bookingId}")
-	public ResponseEntity<Booking> removeBookingHandler(@PathVariable("bookingId") Integer bookingId) {
-		Booking deleBooking = bookingService.cancelBooking(bookingId);
+	@DeleteMapping("/bookings/{bookingId}/{uuid}")
+	public ResponseEntity<Booking> removeBookingHandler(@PathVariable("bookingId") Integer bookingId,
+														@PathVariable("uuid") String uuid) {
+		Booking deleBooking = bookingService.cancelBooking(bookingId, uuid);
 		return new ResponseEntity<Booking>(deleBooking, HttpStatus.OK);
 	}
 	
-	@GetMapping("/bookings/{bookingId}")
-	public ResponseEntity<Booking> getBookingHandler(@PathVariable("bookingId") Integer bookingId){
+	@GetMapping("/bookings/{bookingId}/{uuid}")
+	public ResponseEntity<Booking> getBookingHandler(@PathVariable("bookingId") Integer bookingId,
+													@PathVariable("uuid") String uuid){
 		
-		Booking booking = bookingService.viewBooking(bookingId);
+		Booking booking = bookingService.viewBooking(bookingId, uuid);
 		return new ResponseEntity<Booking>(booking, HttpStatus.OK);
 	}
 	
-	@GetMapping("bookings")
-	public ResponseEntity<List<Booking>> getAllBookingHandler() {
-		List<Booking> bookings = bookingService.viewAllBooking();
+	@GetMapping("bookings/{uuid}")
+	public ResponseEntity<List<Booking>> getAllBookingHandler(@PathVariable("uuid") String uuid) {
+		List<Booking> bookings = bookingService.viewAllBooking(uuid);
 		return new ResponseEntity<List<Booking>>(bookings, HttpStatus.OK);
 	}
 
