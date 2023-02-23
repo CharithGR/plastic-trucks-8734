@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.PackageException;
+import com.masai.exceptions.UserException;
 import com.masai.repository.PackageDAO;
+import com.masai.repository.SessionDAO;
+import com.masai.models.CurrentUserSession;
 import com.masai.models.Package;
 
 @Service
@@ -15,15 +18,33 @@ public class PackageServiceImpl implements PackageService{
 	
 	@Autowired
 	PackageDAO packageDAO;
+	
+	@Autowired
+	SessionDAO sessionDAO;
 
 	@Override
-	public Package addPackage(Package package1) throws PackageException {
+	public Package addPackage(Package package1,String uuid) throws PackageException, UserException {
+		
+		CurrentUserSession currUser = sessionDAO.findByUuid(uuid);
+		
+		if(currUser == null) {
+			throw new UserException("Please log in first");
+		}
 		return packageDAO.save(package1);
 	}
 
 	@Override
-	public Package deletePackage(Integer packageId) throws PackageException {
+	public Package deletePackage(Integer packageId, String uuid) throws PackageException, UserException {
+		
+		CurrentUserSession currUser = sessionDAO.findByUuid(uuid);
+		
+		if(currUser == null) {
+			throw new UserException("Please log in first");
+		}
+		
+		
 		Optional<Package> pacOptional = packageDAO.findById(packageId);
+		
 		if(pacOptional.isPresent()) {
 			Package package1 = pacOptional.get();
 			
@@ -36,7 +57,14 @@ public class PackageServiceImpl implements PackageService{
 	}
 
 	@Override
-	public List<Package> viewAllPackage() throws PackageException {
+	public List<Package> viewAllPackage(String uuid) throws PackageException, UserException {
+		
+		CurrentUserSession currUser = sessionDAO.findByUuid(uuid);
+		
+		if(currUser == null) {
+			throw new UserException("Please log in");
+		}
+		
 		List<Package> packages = packageDAO.findAll();
 		
 		if(packages.isEmpty()) {
@@ -46,7 +74,14 @@ public class PackageServiceImpl implements PackageService{
 	}
 
 	@Override
-	public Package searchPackage(Integer packageId) throws PackageException {
+	public Package searchPackage(Integer packageId,String uuid) throws PackageException, UserException {
+		
+		CurrentUserSession currUser = sessionDAO.findByUuid(uuid);
+		
+		if(currUser == null) {
+			throw new UserException("Please log in");
+		}
+		
 		Optional<Package> pacOptional = packageDAO.findById(packageId);
 		
 		if(pacOptional.isPresent()) {
