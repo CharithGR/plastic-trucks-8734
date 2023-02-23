@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,23 @@ public class Hotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer hotelId;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String hotelName;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String hotelType;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String hotelDescription;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String address;
+	
+//	@NotNull(message = "field cannot be empty")
 	private Double rent;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String status;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "packageHotel")
