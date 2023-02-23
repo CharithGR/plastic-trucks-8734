@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.CustomerException;
 import com.masai.models.Customer;
-import com.masai.service.CustomerServiceImpl;
+import com.masai.service.AdminServiceImpl;
 
 import jakarta.validation.Valid;
 
 
 @RestController
-public class CustomerController {
+public class AdminController {
 
 	@Autowired
-	private CustomerServiceImpl cService;
+	private AdminServiceImpl cService;
 	
 	@PostMapping("/customers")
 	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
@@ -38,19 +38,19 @@ public class CustomerController {
 	}
 	
 	
-	@PutMapping("/customer/{key}")
-	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
+	@PutMapping("/customer")
+	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
 		
-		Customer updateCustomer = cService.updateCustomer(cust, key);
+		Customer updateCustomer = cService.updateCustomer(cust);
 		
 		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.CREATED);
 	}
 	
 	
 	@DeleteMapping("/customers/{custId}")
-	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId, @RequestParam("key") String key) throws CustomerException{
+	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId) throws CustomerException{
 		
-		Customer removeCustomer = cService.removeCustomer(custId, key);
+		Customer removeCustomer = cService.removeCustomer(custId);
 		
 		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
 	}
