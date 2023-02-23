@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,20 @@ public class Package {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer packageId;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String packageName;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String packageDescription;
+	
+//	@NotNull(message = "field cannot be empty")
 	private String packageType;
+	
+//	@NotNull(message = "field cannot be empty")
 	private double packageCost;
+	
+	//	@NotNull(message = "field cannot be empty")
 	private String paymentDetails;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

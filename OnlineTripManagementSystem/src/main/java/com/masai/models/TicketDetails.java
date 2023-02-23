@@ -1,3 +1,4 @@
+
 package com.masai.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ public class TicketDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
+	
+	@NotNull(message = "field cannot be empty")
 	private String ticketStatus;
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeTicket")
