@@ -85,6 +85,12 @@ public class GlobalException {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<MyErrorDetails> loginException(LoginException e,WebRequest req){
+		MyErrorDetails err=new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<MyErrorDetails> nohandlerFoundException(NoHandlerFoundException e,WebRequest req){
 		MyErrorDetails err=new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));		
@@ -97,6 +103,8 @@ public class GlobalException {
 		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
 			
 	}
+	
+	
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> otherExceptionHandler(Exception e, WebRequest req){		
