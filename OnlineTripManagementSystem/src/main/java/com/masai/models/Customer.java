@@ -3,6 +3,8 @@ package com.masai.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Customer {
 	private String address;
 	
 	@ManyToOne
+	@JsonIgnore
 	private User customerUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "feedbackOfCustomer")

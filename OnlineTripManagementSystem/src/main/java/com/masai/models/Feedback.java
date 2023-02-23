@@ -2,6 +2,8 @@ package com.masai.models;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class Feedback {
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Customer feedbackOfCustomer;
 	
 }
