@@ -18,7 +18,7 @@ public interface AdminService {
 			
 			Customer viewCustomer(Integer custId) throws CustomerException;
 			
-			List<Customer> viewAllCustomer(String location) throws CustomerException;
+//			List<Customer> viewAllCustomer(String location) throws CustomerException;
 				
 		}
 	

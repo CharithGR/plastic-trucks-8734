@@ -28,49 +28,49 @@ public class AdminController {
 	@Autowired
 	private AdminServiceImpl cService;
 	
-	@PostMapping("/customers")
-	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
-		System.out.println(cust);
-		
-		Customer saveCustomer = cService.addCustomer(cust);
-		
-		return new ResponseEntity<Customer>(saveCustomer, HttpStatus.CREATED);
-	}
+//	@PostMapping("/customers")
+//	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
+//		System.out.println(cust);
+//		
+//		Customer saveCustomer = cService.addCustomer(cust);
+//		
+//		return new ResponseEntity<Customer>(saveCustomer, HttpStatus.CREATED);
+//	}
 	
+//	
+//	@PutMapping("/customer")
+//	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
+//		
+//		Customer updateCustomer = cService.updateCustomer(cust);
+//		
+//		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.CREATED);
+//	}
+//	
 	
-	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
-		
-		Customer updateCustomer = cService.updateCustomer(cust);
-		
-		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.CREATED);
-	}
+//	@DeleteMapping("/customers/{custId}")
+//	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId) throws CustomerException{
+//		
+//		Customer removeCustomer = cService.removeCustomer(custId);
+//		
+//		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
+//	}
+//	
+//	
+//	@GetMapping("/customer/{custId}")
+//	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
+//		
+//		Customer viewCustomer = cService.viewCustomer(custId);
+//		
+//		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
+//	}
 	
-	
-	@DeleteMapping("/customers/{custId}")
-	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId) throws CustomerException{
-		
-		Customer removeCustomer = cService.removeCustomer(custId);
-		
-		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
-	}
-	
-	
-	@GetMapping("/customer/{custId}")
-	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
-		
-		Customer viewCustomer = cService.viewCustomer(custId);
-		
-		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
-	}
-	
-	
-	@GetMapping("/customers/{location}")
-	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
-		
-		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
-		
-		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
-	}	
+//	
+//	@GetMapping("/customers/{location}")
+//	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
+//		
+//		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
+//		
+//		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
+//	}	
 	
 }
