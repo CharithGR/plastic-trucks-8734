@@ -65,12 +65,12 @@ public class CustomerController {
 	}
 	
 	
-	@GetMapping("/customers/{location}")
-	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
-		
-		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
-		
-		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
-	}	
+//	@GetMapping("/customers/{location}")
+//	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
+//		
+//		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
+//		
+//		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
+//	}	
 	
 }

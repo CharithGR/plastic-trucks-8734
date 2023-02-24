@@ -15,7 +15,7 @@ public interface AdminDAO extends JpaRepository<Customer, Integer>{
 	
 	public Customer findByEmail(String email);
 
-	@Query("select a.Customer from Address a where a.city=?1")
-	List<Customer> viewAllCustomer(String location);
+//	@Query("select a.Customer from Address a where a.city=?1")
+//	List<Customer> viewAllCustomer(String location);
 
 }

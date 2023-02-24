@@ -91,20 +91,20 @@ public class AdminServiceImpl implements AdminService {
 			throw new CustomerException("Customer is not found with given customerId "+custId);
 	}
 
-	@Override
-	public List<Customer> viewAllCustomer(String location) throws CustomerException {
-		
-		List<Customer> customers = customerD.viewAllCustomer(location);
-		
-		if(customers.isEmpty())
-			throw new CustomerException("Customer is not found with given location: "+location);
-		
-		else {
-			List<Customer> customerList = new ArrayList<>(customers);
-			
-			return customerList;
-		}
-	}
+//	@Override
+//	public List<Customer> viewAllCustomer(String location) throws CustomerException {
+//		
+//		List<Customer> customers = customerD.viewAllCustomer(location);
+//		
+//		if(customers.isEmpty())
+//			throw new CustomerException("Customer is not found with given location: "+location);
+//		
+//		else {
+//			List<Customer> customerList = new ArrayList<>(customers);
+//			
+//			return customerList;
+//		}
+//	}
 
 	
 	

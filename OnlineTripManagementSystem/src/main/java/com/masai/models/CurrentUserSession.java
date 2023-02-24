@@ -18,10 +18,10 @@ import lombok.ToString;
 public class CurrentUserSession {
 	
 	@Id
-	@Column(unique = true)
+//	@Column(unique = true)
 	private Integer userId;
 	
-	
+	private String userType;
 	private String uuid;
 	
 	private LocalDateTime localDateTime;

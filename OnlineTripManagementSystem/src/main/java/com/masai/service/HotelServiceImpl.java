@@ -47,7 +47,7 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel ViewHotelByAddress(String hotelAddress) throws HotelException {
-		Optional<Hotel> opt = hdao.findByHotelAddress(hotelAddress);
+		Optional<Hotel> opt = hdao.findByAddress(hotelAddress);
 		 if(opt.isPresent()) {
 			 Hotel hotel = opt.get();
 			 return hotel;

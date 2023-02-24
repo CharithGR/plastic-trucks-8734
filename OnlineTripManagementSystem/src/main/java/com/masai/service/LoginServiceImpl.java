@@ -3,6 +3,7 @@ package com.masai.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import com.masai.models.LoginDTO;
 import com.masai.repository.CustomerDAO;
 import com.masai.repository.SessionDAO;
 
-import net.bytebuddy.utility.RandomString;
+//import net.bytebuddy.utility.RandomString;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -27,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public String logIntoAccount(LoginDTO loginDTO) {
-		if(loginDTO.getUserType().equalsIgnoreCase("User")) {
+		if(loginDTO.getUserType().equalsIgnoreCase("Customer")) {
 			Customer existingCustomer= cdao.findByEmail(loginDTO.getEmail());
 			
 			if(existingCustomer==null)throw new LoginException("Account does not exsits with this email");
@@ -38,9 +39,9 @@ public class LoginServiceImpl implements LoginService {
 				throw new LoginException("User already Logged In with this number");
 				
 			if(existingCustomer.getCustomerPassword().equals(loginDTO.getPassword())) {
-				String key=RandomString.make(6);
-				
-				CurrentUserSession currentUserSession=new CurrentUserSession(existingCustomer.getCustomerId(), key, LocalDateTime.now());
+//				String key=RandomStringUtils.random(6);
+				String key="abc";
+				CurrentUserSession currentUserSession=new CurrentUserSession(existingCustomer.getCustomerId(),"customer",key,LocalDateTime.now());
 				sdao.save(currentUserSession);
 				return currentUserSession.toString();
 			

@@ -10,6 +10,6 @@ public interface HotelDAO extends JpaRepository<Hotel, Integer> {
 
 	Optional<Hotel> findByHotelName(String hotelName);
 
-	Optional<Hotel> findByHotelAddress(String hotelAddress);
+	Optional<Hotel> findByAddress(String hotelAddress);
 
 }
