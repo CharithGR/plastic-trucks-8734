@@ -22,7 +22,7 @@ public class Bus {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer ticketId;
+	private Integer busId;
 	
 //	@NotNull(message = "field cannot be empty")
 	private String busType;
