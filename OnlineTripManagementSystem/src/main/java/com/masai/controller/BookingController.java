@@ -27,8 +27,6 @@ public class BookingController {
 	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking, @PathVariable("uuid") String uuid){
 		Booking newbooking = bookingService.makeBooking(booking,uuid);
 		return new ResponseEntity<Booking>(newbooking, HttpStatus.CREATED);
-		
-		
 	}
 	
 	@DeleteMapping("/bookings/{bookingId}/{uuid}")

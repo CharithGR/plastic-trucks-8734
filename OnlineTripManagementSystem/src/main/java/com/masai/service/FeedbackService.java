@@ -12,9 +12,9 @@ import com.masai.models.Feedback;
 @Service
 public interface FeedbackService {
 	
-	public Feedback AddFeedback(Feedback feedback)throws FeedbackException;
-	public Feedback FindByFeedbackId(Integer feedbackId)throws FeedbackException;
-	//public Feedback FindByCustomerId(Integer customerId)throws CustomerException;
-	public List<Feedback> ViewAllFeedback()throws FeedbackException;
+	public Feedback AddFeedback(Feedback feedback, String uuid)throws FeedbackException;
+	public Feedback FindByFeedbackId(Integer feedbackId, String uuid)throws FeedbackException;
+//	public Customer FindByCustomerId(Integer customerId, String uuid)throws CustomerException;
+	public List<Feedback> ViewAllFeedback(String uuid)throws FeedbackException;
 	
 }

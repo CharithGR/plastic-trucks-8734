@@ -22,6 +22,7 @@ public class CurrentUserSession {
 	private Integer userId;
 	
 	private String userType;
+
 	private String uuid;
 	
 	private LocalDateTime localDateTime;

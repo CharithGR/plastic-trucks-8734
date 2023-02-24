@@ -24,26 +24,26 @@ public class ReportController {
 	private ReportService rService;
 	
 	@PostMapping("/reports")
-	public ResponseEntity<Report> addReportHandler(@RequestBody Report report){
-		Report newReport = rService.AddReport(report);
+	public ResponseEntity<Report> addReportHandler(@RequestBody Report report, @PathVariable("uuid") String uuid){
+		Report newReport = rService.AddReport(report, uuid);
 		return new ResponseEntity<Report>(newReport, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/reports/{reportId}")
-	public ResponseEntity<Report> deleteReportHandler(@PathVariable("reportId") Integer reportId){
-		Report deletedReport = rService.DeleteReportById(reportId);
+	public ResponseEntity<Report> deleteReportHandler(@PathVariable("reportId") Integer reportId, @PathVariable("uuid") String uuid){
+		Report deletedReport = rService.DeleteReportById(reportId, uuid);
 		return new ResponseEntity<Report>(deletedReport, HttpStatus.OK);
 	}
 	
 	@GetMapping("/reportId/{reportId}")
-	public ResponseEntity<Report> ViewReportByIdHandler(@PathVariable("reportId") Integer reportId){
-		Report report = rService.ViewReportById(reportId);
+	public ResponseEntity<Report> ViewReportByIdHandler(@PathVariable("reportId") Integer reportId, @PathVariable("uuid") String uuid){
+		Report report = rService.ViewReportById(reportId, uuid);
 		return new ResponseEntity<Report>(report,HttpStatus.OK);
 	}
 	
 	@GetMapping("/reports")
-	public ResponseEntity<List<Report>> ViewAllReportsHandler(){
-		List<Report> reports = rService.ViewAllReport();
+	public ResponseEntity<List<Report>> ViewAllReportsHandler(@PathVariable("uuid") String uuid){
+		List<Report> reports = rService.ViewAllReport(uuid);
 		return new ResponseEntity<List<Report>>(reports,HttpStatus.OK);
 	}
 }

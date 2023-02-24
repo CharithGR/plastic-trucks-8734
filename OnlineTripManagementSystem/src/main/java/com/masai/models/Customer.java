@@ -56,7 +56,7 @@ public class Customer {
 	private User customerUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "feedbackOfCustomer")
-	private List<Feedback> listOfFeedback=new ArrayList<>();
+	private List<Feedback> listOfFeedback = new ArrayList<>();
 	
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookingUser")

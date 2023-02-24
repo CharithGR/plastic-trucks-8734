@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.masai.models.Customer;
+import com.masai.models.Feedback;
 
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Integer>{
@@ -14,6 +15,8 @@ public interface CustomerDAO extends JpaRepository<Customer, Integer>{
 	
 	
 	public Customer findByEmail(String email);
+
+	public List<Feedback> findByListOfFeedback();
 
 //	@Query("select a.Customer from Address a where a.city=?1")
 //	List<Customer> viewAllCustomer(String location);
