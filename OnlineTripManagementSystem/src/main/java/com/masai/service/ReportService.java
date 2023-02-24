@@ -8,9 +8,9 @@ import com.masai.models.Report;
 @Service
 public interface ReportService {
 	
-	public Report AddReport(Report report)throws ReportException;
-	public Report DeleteReportById(Integer reportId)throws ReportException;
-	public Report ViewReportById(Integer reportId)throws ReportException;
-	public List<Report> ViewAllReport()throws ReportException;
+	public Report AddReport(Report report, String uuid)throws ReportException;
+	public Report DeleteReportById(Integer reportId, String uuid)throws ReportException;
+	public Report ViewReportById(Integer reportId, String uuid)throws ReportException;
+	public List<Report> ViewAllReport(String uuid)throws ReportException;
 	
 }

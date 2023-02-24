@@ -29,8 +29,6 @@ public class BookingController {
 			@PathVariable("pacId") Integer packageId){
 		Booking newbooking = bookingService.makeBooking(booking,uuid, packageId);
 		return new ResponseEntity<Booking>(newbooking, HttpStatus.CREATED);
-		
-		
 	}
 	
 	@DeleteMapping("/bookings/{bookingId}/{uuid}")
