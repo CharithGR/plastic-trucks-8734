@@ -23,9 +23,11 @@ public class BookingController {
 	@Autowired
 	BookingService bookingService;
 	
-	@PostMapping("/bookings/{uuid}")
-	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking, @PathVariable("uuid") String uuid){
-		Booking newbooking = bookingService.makeBooking(booking,uuid);
+	@PostMapping("/bookings/{uuid}/{pacId}")
+	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking,
+			@PathVariable("uuid") String uuid,
+			@PathVariable("pacId") Integer packageId){
+		Booking newbooking = bookingService.makeBooking(booking,uuid, packageId);
 		return new ResponseEntity<Booking>(newbooking, HttpStatus.CREATED);
 		
 		

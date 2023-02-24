@@ -30,6 +30,10 @@ public class PackageServiceImpl implements PackageService{
 		if(currUser == null) {
 			throw new UserException("Please log in first");
 		}
+		
+		if(currUser.getUserType().equalsIgnoreCase("customer")) {
+			throw new UserException("Access Denied");
+		}
 		return packageDAO.save(package1);
 	}
 
@@ -40,6 +44,10 @@ public class PackageServiceImpl implements PackageService{
 		
 		if(currUser == null) {
 			throw new UserException("Please log in first");
+		}
+		
+		if(currUser.getUserType().equalsIgnoreCase("customer")) {
+			throw new UserException("Access Denied");
 		}
 		
 		
