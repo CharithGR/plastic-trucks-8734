@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.BookingException;
+import com.masai.exceptions.PackageException;
 import com.masai.exceptions.UserException;
 import com.masai.models.Booking;
 import com.masai.models.CurrentUserSession;
+import com.masai.models.Customer;
+import com.masai.models.Package;
 import com.masai.models.User;
 import com.masai.repository.BookingDAO;
+import com.masai.repository.CustomerDAO;
+import com.masai.repository.PackageDAO;
 import com.masai.repository.SessionDAO;
 import com.masai.repository.UserDAO;
 
@@ -26,14 +31,22 @@ public class BookingServiceImpl implements BookingService {
 	
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	PackageDAO packageDAO;
+	
+	@Autowired
+	CustomerDAO customerDAO;
 
 	@Override
-	public Booking makeBooking(Booking booking, String uuid) throws BookingException, UserException {
+	public Booking makeBooking(Booking booking, String uuid, Integer packageId) throws BookingException, UserException, PackageException {
 		CurrentUserSession existingUser = sessionDAO.findByUuid(uuid);
 		
 		if(existingUser == null) {
 			throw new UserException("User not logged in");
 		}
+		
+		packageDAO.findById(packageId).orElseThrow(()-> new PackageException("Invalid Package"));
 		
 		
 		return bookingDAO.save(booking);
@@ -88,12 +101,35 @@ public class BookingServiceImpl implements BookingService {
 			throw new UserException("Please log in");
 		}
 		
-		List<Booking> bookings = bookingDAO.findAll();
-		if(bookings.isEmpty()) {
-			throw new BookingException("No booking till now");
+		if(exUserSession.getUserType().equalsIgnoreCase("admin")) {
+			
+			List<Booking> bookings = bookingDAO.findAll();
+			if(bookings.isEmpty()) {
+				throw new BookingException("No booking till now");
+			}
+			else
+				return bookings;
 		}
-		else
-			return bookings;
+		else {
+			
+			String userUuid = exUserSession.getUuid();
+			User U = userDAO.findByUuidUser(userUuid);
+			
+			Customer customer = customerDAO.findByCustomerUser(U);
+			
+			
+			
+			List<Booking> bookings = bookingDAO.findByBookingUser(customer);
+			
+			
+			if(bookings.isEmpty()) {
+				throw new BookingException("No booking till now");
+			}
+			else
+				return bookings;
+		}
+		
+		
 	}
 
 }
