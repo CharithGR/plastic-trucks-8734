@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.masai.models.Admin;
 import com.masai.models.Customer;
 
 @Repository
-public interface AdminDAO extends JpaRepository<Customer, Integer>{
+public interface AdminDAO extends JpaRepository<Admin, Integer>{
 	
 	
-	
-	public Customer findByEmail(String email);
+	public Admin findByEmail(String email);
 
 //	@Query("select a.Customer from Address a where a.city=?1")
 //	List<Customer> viewAllCustomer(String location);

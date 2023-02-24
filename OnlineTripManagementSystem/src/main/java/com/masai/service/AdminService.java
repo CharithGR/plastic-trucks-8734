@@ -10,6 +10,8 @@ import com.masai.models.Customer;
 @Service
 public interface AdminService {
 
+
+	
 			Customer addCustomer(Customer cust) throws CustomerException;
 			
 			Customer updateCustomer(Customer cust) throws CustomerException;
