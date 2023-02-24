@@ -8,14 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.masai.models.Customer;
 import com.masai.models.Feedback;
-import com.masai.models.User;
+
 
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Integer>{
 	
 	public Customer findByEmail(String email);
-	public Customer  findByCustomerUser(User customerUser);
-
 	public List<Feedback> findByListOfFeedback();
 
 //	@Query("select a.Customer from Address a where a.city=?1")
