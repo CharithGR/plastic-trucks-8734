@@ -59,13 +59,13 @@ public class BookingServiceImpl implements BookingService {
 		if(existingUser == null) {
 			throw new UserException("User not logged in");
 		}
-		if(existingUser.getUserType().equalsIgnoreCase("admin"))throw new LoginException("Access Denied");
+		//if(existingUser.getUserType().equalsIgnoreCase("admin"))throw new LoginException("Access Denied");
 				
 		Package currentPackage= packageDAO.findById(packageId).orElseThrow(()-> new PackageException("Invalid Package"));
 		Route route=routeDAO.findById(routeId).orElseThrow(()->new RouteException("Invalid RouteId"));
 
 		
-		Customer customer=customerDAO.findById(existingUser.getUserId()).orElseThrow();
+		Customer customer=customerDAO.findById(existingUser.getUserId()).orElseThrow(()-> new CustomerException("Customer not found"));
 		
 		
 		Booking booking=new Booking();
