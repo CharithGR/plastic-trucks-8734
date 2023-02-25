@@ -64,10 +64,10 @@ public class Route {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Package routePackage;
-		
 	
 	
-	@OneToOne
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "ticketRoute")
 	@JsonIgnore
-	private TicketDetails routeTicket;
+	private List<TicketDetails> routeTickets=new ArrayList<>();
 }

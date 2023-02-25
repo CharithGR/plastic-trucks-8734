@@ -94,7 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Booking> listOfBookings=customer.getListOfBookingOfCustomer();
 		Booking booking=listOfBookings.get(listOfBookings.size()-1);
 		
-		TicketDetails ticketDetails=booking.getBookedTickets();		
+		TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
 		LocalDate currentDate=LocalDate.now();
 		LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
 		LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();		

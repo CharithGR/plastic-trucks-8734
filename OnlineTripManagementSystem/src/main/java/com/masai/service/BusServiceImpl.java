@@ -75,4 +75,21 @@ public class BusServiceImpl implements BusService {
 		return "Bus Deleted";
 	}
 
+
+
+	@Override
+	public Bus updateBus(Bus bus, Integer busId, String key) {
+		CurrentUserSession currentUserSession=sessionDAO.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to remove bus/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+		
+		Bus existingBus=busDAO.findById(busId).orElseThrow(()->new BusException("Invalid Bus Id"));
+
+		existingBus.setBusNumber(bus.getBusNumber());
+		existingBus.setBusType(bus.getBusType());
+		existingBus.setCapacity(bus.getCapacity());		
+		
+		return busDAO.save(existingBus);
+	}
+
 }

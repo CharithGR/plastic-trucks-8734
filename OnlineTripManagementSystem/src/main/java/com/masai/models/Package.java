@@ -41,10 +41,9 @@ public class Package {
 	private double packageCost;
 	
 	//	@NotNull(message = "field cannot be empty")
-	private String paymentDetails;
+//	private String paymentDetails;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)	
 	private Hotel packageHotel;
 	
 	

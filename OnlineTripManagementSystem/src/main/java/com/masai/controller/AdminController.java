@@ -1,15 +1,20 @@
 package com.masai.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.CustomerException;
+import com.masai.models.Customer;
 import com.masai.service.AdminService;
 
 import jakarta.annotation.PostConstruct;
@@ -54,23 +59,22 @@ public class AdminController {
 		
 		return new ResponseEntity<String>(res, HttpStatus.CREATED);
 	}
-//	
-//	
-//	@GetMapping("/customer/{custId}")
-//	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
-//		
-//		Customer viewCustomer = cService.viewCustomer(custId);
-//		
-//		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
-//	}
 	
-//	
-//	@GetMapping("/customers/{location}")
-//	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
-//		
-//		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
-//		
-//		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
-//	}	
+	
+	@GetMapping("/customers/{custId}")
+	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable("custId")Integer custId,@RequestParam("Key")String key) throws CustomerException{
+		
+		Customer viewCustomer = adminService.viewCustomer(custId, key);
+		
+		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/customers")
+	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@RequestParam("Key") String key)throws CustomerException{
+		
+		List<Customer> viewAllCustomer = adminService.viewAllCustomer(key);		
+		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
+	}	
 	
 }

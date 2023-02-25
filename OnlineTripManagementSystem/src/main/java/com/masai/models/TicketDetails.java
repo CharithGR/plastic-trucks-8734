@@ -28,15 +28,15 @@ public class TicketDetails {
 	@NotNull(message = "field cannot be empty")
 	private String ticketStatus="Not Booked";
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeTicket")
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Route ticketRoute;
 	
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JsonIgnore
 //	private Package ticketPackage;
 	
-	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)	
 	private Booking bookedTickets;
 	
 }

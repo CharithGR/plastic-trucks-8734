@@ -6,12 +6,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exceptions.HotelException;
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.PackageException;
+import com.masai.exceptions.RouteException;
 import com.masai.exceptions.UserException;
+import com.masai.repository.HotelDAO;
 import com.masai.repository.PackageDAO;
+import com.masai.repository.RouteDAO;
 import com.masai.repository.SessionDAO;
 import com.masai.models.CurrentUserSession;
+import com.masai.models.Hotel;
 import com.masai.models.Package;
+import com.masai.models.Route;
 
 @Service
 public class PackageServiceImpl implements PackageService{
@@ -21,6 +28,13 @@ public class PackageServiceImpl implements PackageService{
 	
 	@Autowired
 	SessionDAO sessionDAO;
+	
+	@Autowired
+	HotelDAO hotelDAO;
+	
+	@Autowired
+	RouteDAO routeDAO;
+	
 
 	@Override
 	public Package addPackage(Package package1,String uuid) throws PackageException, UserException {
@@ -101,6 +115,39 @@ public class PackageServiceImpl implements PackageService{
 			throw new PackageException("No package with packageId :"+packageId);
 		}
 		
+	}
+
+	@Override
+	public Package addHotelToPackage(Integer hotelId,Integer packageid, String key) {
+		CurrentUserSession currentUserSession=sessionDAO.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to add hotel to package/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+		
+		Hotel hotel=hotelDAO.findById(hotelId).orElseThrow(()->new HotelException("Invalid Hotel Id"));
+		Package package1=packageDAO.findById(packageid).orElseThrow(()->new PackageException("Invalid packageId"));
+		
+		hotel.getListOfPackageOfHotel().add(package1);
+		package1.setPackageHotel(hotel);
+		hotelDAO.save(hotel);
+		
+		
+		return packageDAO.save(package1);
+	}
+
+	@Override
+	public Package addRouteToPackage(Integer routeId, Integer packageid, String key) {
+		CurrentUserSession currentUserSession=sessionDAO.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to add route to package/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+		
+		Route route=routeDAO.findById(routeId).orElseThrow(()->new RouteException("Invalid Route Id"));
+		Package package1=packageDAO.findById(packageid).orElseThrow(()->new PackageException("Invalid packageId"));
+
+		route.setRoutePackage(package1);
+		package1.getListOfRouteinPackage().add(route);
+		routeDAO.save(route);
+		
+		return packageDAO.save(package1);
 	}
 
 }

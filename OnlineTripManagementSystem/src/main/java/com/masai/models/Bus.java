@@ -35,7 +35,7 @@ public class Bus {
 	private Integer capacity;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
+//	@JsonIgnore
 	private Travels travelBus;
 	
 	

@@ -30,7 +30,7 @@ public class TravelsController {
 	}
 	
 	@GetMapping("/travels")
-	public ResponseEntity<List<Travels>> allTravles(@RequestBody Travels travels) throws TravelsException{
+	public ResponseEntity<List<Travels>> allTravles() throws TravelsException{
 		List<Travels> travelsList = travelsService.viewTravels(); 
 		return new ResponseEntity<List<Travels>>(travelsList,HttpStatus.OK);
 	}

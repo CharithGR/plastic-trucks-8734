@@ -12,6 +12,7 @@ import com.masai.exceptions.LoginException;
 import com.masai.exceptions.UserException;
 import com.masai.models.CurrentUserSession;
 import com.masai.models.Hotel;
+import com.masai.models.Package;
 import com.masai.repository.HotelDAO;
 import com.masai.repository.SessionDAO;
 
@@ -100,6 +101,23 @@ public class HotelServiceImpl implements HotelService{
 				return hotel;
 			}
 		}
+	}
+
+	@Override
+	public String deleteHotel(Integer hotelId,String key) {
+		CurrentUserSession currentUserSession=sdao.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to remove hotel/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+		
+		Hotel hotel=hdao.findById(hotelId).orElseThrow(()->new HotelException("Invalid Hotel Id"));
+		
+		List<Package> listOfPackages=hotel.getListOfPackageOfHotel();
+		
+		listOfPackages.remove(hotel);
+		
+		hdao.delete(hotel);
+				
+		return "Hotel Removed";
 	}
 
 }
