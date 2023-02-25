@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.models.Booking;
@@ -23,19 +24,21 @@ public class BookingController {
 	@Autowired
 	BookingService bookingService;
 	
-	@PostMapping("/bookings/{uuid}/{pacId}")
-	public ResponseEntity<Booking> addBookingHandler(@RequestBody Booking booking,
-			@PathVariable("uuid") String uuid,
-			@PathVariable("pacId") Integer packageId){
-		Booking newbooking = bookingService.makeBooking(booking,uuid, packageId);
+	@PostMapping("/bookings")
+	public ResponseEntity<Booking> addBookingHandler(@RequestParam("PackageId")Integer packageId,
+			@RequestParam("noOfTickets")Integer noOfTickets,
+			@RequestParam("routeId")Integer routeId,
+			@RequestParam("key")String key
+			){
+		Booking newbooking = bookingService.makeBooking(packageId, noOfTickets, routeId, key);
 		return new ResponseEntity<Booking>(newbooking, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/bookings/{bookingId}/{uuid}")
-	public ResponseEntity<Booking> removeBookingHandler(@PathVariable("bookingId") Integer bookingId,
+	public ResponseEntity<String> removeBookingHandler(@PathVariable("bookingId") Integer bookingId,
 														@PathVariable("uuid") String uuid) {
-		Booking deleBooking = bookingService.cancelBooking(bookingId, uuid);
-		return new ResponseEntity<Booking>(deleBooking, HttpStatus.OK);
+		String res=  bookingService.cancelBooking(bookingId, uuid);
+		return new ResponseEntity<String>(res, HttpStatus.OK);
 	}
 	
 	@GetMapping("/bookings/{bookingId}/{uuid}")

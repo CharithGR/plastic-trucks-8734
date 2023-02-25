@@ -15,6 +15,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
@@ -45,11 +48,16 @@ public class Booking {
 //	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate bookingDate;
 	
+//	@Min(1)
+//	@Max(15)
+	private Integer noOfTickets;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Customer bookingUser;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookedTickets")
-	private List<TicketDetails> listOfBookedTickets=new ArrayList<>();
-}
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "bookedTickets")
+	private TicketDetails BookedTickets;
+	
+	}

@@ -48,7 +48,12 @@ public class Package {
 	private Hotel packageHotel;
 	
 	
-	@OneToMany(cascade =CascadeType.ALL,mappedBy = "ticketPackage")
-	List<TicketDetails> listOfTicketDeatils=new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "routePackage")
+	private List<Route> listOfRouteinPackage=new ArrayList<>();
+	
+	
+	
+//	@OneToMany(cascade =CascadeType.ALL,mappedBy = "ticketPackage")
+//	List<TicketDetails> listOfTicketDeatils=new ArrayList<>();
 	
 }

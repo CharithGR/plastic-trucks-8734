@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exceptions.RouteException;
@@ -23,9 +24,9 @@ public class routeController {
 	@Autowired
 	RouteService routeService;
 	
-	@PostMapping("/routes/{key}")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route , @PathVariable String key){
-		Route route2 = routeService.AddRoute(route,key);
+	@PostMapping("/routes")
+	public ResponseEntity<Route> addRoute(@RequestBody Route route ,@RequestParam("PacakageId")Integer packageId, @RequestParam("key")String key){
+		Route route2 = routeService.AddRoute(route, packageId, key);
 		return new ResponseEntity<Route>(route2,HttpStatus.OK);
 	}
 	

@@ -42,10 +42,10 @@ public class FeedbackController {
 //		return new ResponseEntity<Customer>(feedback,HttpStatus.OK);
 //	}
 	
-	@GetMapping("/feedbacks/{uuid}")
-	public ResponseEntity<List<Feedback>> ViewAllFeedbacksHandler(@PathVariable("uuid") String uuid){
-		List<Feedback> fdbks = fService.ViewAllFeedback(uuid);
-		return new ResponseEntity<List<Feedback>>(fdbks,HttpStatus.OK);
-	}
+//	@GetMapping("/feedbacks/{uuid}")
+//	public ResponseEntity<List<Feedback>> ViewAllFeedbacksHandler(@PathVariable("uuid") String uuid){
+//		List<Feedback> fdbks = fService.ViewAllFeedback(uuid);
+//		return new ResponseEntity<List<Feedback>>(fdbks,HttpStatus.OK);
+//	}
 	
 }

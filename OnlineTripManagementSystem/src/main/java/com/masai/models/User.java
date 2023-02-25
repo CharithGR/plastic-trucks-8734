@@ -38,10 +38,10 @@ public class User {
 	private String password;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "adminUser")
-	@JsonIgnore
-	private Admin admin;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customerUser")
-	List<Customer> listOfCustomers=new ArrayList<>();
+//	@OneToOne(cascade = CascadeType.ALL,mappedBy = "adminUser")
+//	@JsonIgnore
+//	private Admin admin;
+//	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customerUser")
+//	List<Customer> listOfCustomers=new ArrayList<>();
 }

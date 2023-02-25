@@ -51,9 +51,9 @@ public class Customer {
 //	@NotNull(message = "field cannot be empty")
 	private String address;
 	
-	@ManyToOne
-	@JsonIgnore
-	private User customerUser;
+//	@ManyToOne
+//	@JsonIgnore
+//	private User customerUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "feedbackOfCustomer")
 	private List<Feedback> listOfFeedback = new ArrayList<>();

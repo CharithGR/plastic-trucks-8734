@@ -41,7 +41,7 @@ public class BusServiceImpl implements BusService {
 		Route route=routeDAO.findById(routeId).orElseThrow(()->new RouteException("Invalid RouteId"));
 		Travels travels=travelsDAO.findById(travesId).orElseThrow(()->new TravelsException("Invalid Travel Id"));
 					
-		route.getListOfBusInRoute().add(bus);
+		route.setBusRoute(bus);
 		travels.getListOfBusOfTravels().add(bus);
 		bus.setRouteOfBus(route);
 		bus.setTravelBus(travels);
@@ -64,12 +64,12 @@ public class BusServiceImpl implements BusService {
 		Route route=bus.getRouteOfBus();
 		Travels travels=bus.getTravelBus();
 		
-		List<Bus> routeBus=route.getListOfBusInRoute();
+		Bus routeBus=route.getBusRoute();
 		List<Bus> travelbus=travels.getListOfBusOfTravels();
 		
-		routeBus.remove(bus);
 		travelbus.remove(bus);
 		
+		busDAO.delete(routeBus);
 		busDAO.delete(bus);
 		
 		return "Bus Deleted";

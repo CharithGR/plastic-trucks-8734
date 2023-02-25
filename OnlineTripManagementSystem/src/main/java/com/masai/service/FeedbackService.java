@@ -15,6 +15,6 @@ public interface FeedbackService {
 	public Feedback AddFeedback(Feedback feedback, String uuid)throws FeedbackException;
 	public Feedback FindByFeedbackId(Integer feedbackId, String uuid)throws FeedbackException;
 //	public Customer FindByCustomerId(Integer customerId, String uuid)throws CustomerException;
-	public List<Feedback> ViewAllFeedback(String uuid)throws FeedbackException;
+//	public List<Feedback> ViewAllFeedback(String uuid)throws FeedbackException;
 	
 }

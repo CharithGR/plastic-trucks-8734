@@ -13,8 +13,8 @@ import com.masai.models.Booking;
 public interface BookingService {
 	
 	
-	public Booking makeBooking(Booking booking, String uuid, Integer packageId)throws BookingException, UserException, PackageException;
-	public Booking cancelBooking(Integer bookingId, String uuid)throws BookingException,UserException;
+	public Booking makeBooking(Integer packageId,Integer noOftickets,Integer routeId,String uuid)throws BookingException, UserException, PackageException;
+	public String cancelBooking(Integer bookingId, String uuid)throws BookingException,UserException;
 	public Booking viewBooking(Integer bookingId, String uuid)throws BookingException, UserException;
 	public List<Booking> viewAllBooking(String uuid)throws BookingException, UserException ;
 

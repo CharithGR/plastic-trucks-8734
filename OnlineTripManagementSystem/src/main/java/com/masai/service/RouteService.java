@@ -11,7 +11,7 @@ import com.masai.models.Route;
 
 @Service
 public interface RouteService {
-	public Route AddRoute(Route route,String UUID);
+	public Route AddRoute(Route route,Integer packageId,String UUID);
 	public Route UpdateRoute(Route route ,String UUID) throws RouteException;
 	public Route RemoveRoute(Integer RouteId,String UUID) throws RouteException;
 	public Route SearchRoute(Integer RouteId) throws RouteException;

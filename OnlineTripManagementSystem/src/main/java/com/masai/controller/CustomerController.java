@@ -43,23 +43,23 @@ public class CustomerController {
 		
 		Customer updateCustomer = cService.updateCustomer(cust, key);
 		
-		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.CREATED);
+		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.OK);
 	}
 	
 	
-	@DeleteMapping("/customers/{custId}")
-	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId, @RequestParam("key") String key) throws CustomerException{
+	@DeleteMapping("/customers")
+	public ResponseEntity<String> removeCustomerHandler(@RequestParam("key") String key) throws CustomerException{
 		
-		Customer removeCustomer = cService.removeCustomer(custId, key);
+		String res = cService.removeCustomer(key);
 		
-		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
+		return new ResponseEntity<String>(res, HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/customer/{custId}")
-	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
+	@GetMapping("/customer")
+	public ResponseEntity<Customer> viewCustomerHandler(@RequestParam("key") String key) throws CustomerException{
 		
-		Customer viewCustomer = cService.viewCustomer(custId);
+		Customer viewCustomer = cService.viewCustomer(key);
 		
 		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
 	}
