@@ -10,4 +10,6 @@ public interface BusService {
 	public Bus addBus(Bus bus,Integer routeId,Integer travesId,String key);
 	
 	public String removeBus(Integer busId,String key);
+	public Bus updateBus(Bus bus,Integer busId,String key);
+	
 }

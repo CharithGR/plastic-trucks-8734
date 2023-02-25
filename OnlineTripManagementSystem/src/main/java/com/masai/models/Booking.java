@@ -58,6 +58,6 @@ public class Booking {
 	private Customer bookingUser;
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "bookedTickets")
-	private TicketDetails BookedTickets;
+	private TicketDetails bookedTicketsofCustomer;
 	
 	}

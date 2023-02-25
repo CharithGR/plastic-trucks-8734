@@ -33,13 +33,13 @@ public class TravelsServiceImpl implements TravelsService{
 		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
 			throw new LoginException("Access denied");
 		}
-		else {
-		Optional<Travels> tOpt=travelsDao.findById(travels.getTravelsId());//find travels if exist
-		if (tOpt.isPresent()) {
-			throw new TravelsException("This Travelservice is already available in database");
-		}
+//		else {
+//		Optional<Travels> tOpt=travelsDao.findById(travels.getTravelsId());//find travels if exist
+//		if (tOpt.isPresent()) {
+//			throw new TravelsException("This Travelservice is already available in database");
+//		}
 		return travelsDao.save(travels);
-		}
+//		}
 	}
 	
 //=============================================Update Travels details ==========================================================

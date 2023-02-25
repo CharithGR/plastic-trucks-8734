@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.BookingException;
 import com.masai.exceptions.CustomerException;
+import com.masai.exceptions.LoginException;
 import com.masai.models.Admin;
 import com.masai.models.Booking;
 import com.masai.models.CurrentUserSession;
@@ -43,40 +44,40 @@ public class AdminServiceImpl implements AdminService {
 	BookingDAO bookingDAO;
 	
 	
-	@Override
-	public Customer addCustomer(Customer cust) throws CustomerException {
-		
-		Customer existCustomer = customerD.findByEmail(cust.getEmail());
-		
-		if(existCustomer!=null) {
-			throw new CustomerException("Customer already exists");
-		}
-		
-		Customer new_cust = customerD.save(cust);
-		
-		return customerD.save(new_cust);
-		
-	}
-	
-
-	@Override
-	public Customer updateCustomer(Customer cust) throws CustomerException {
-		
-		Customer existCustomer = customerD.findByEmail(cust.getEmail());
-		
-		if(existCustomer!=null) {
-			Customer new_cust = customerD.save(cust);
-			
-			return customerD.save(new_cust);
-		}
-		else
-		{
-			return null;
-		}
-		
-		
-		
-	}
+//	@Override
+//	public Customer addCustomer(Customer cust) throws CustomerException {
+//		
+//		Customer existCustomer = customerD.findByEmail(cust.getEmail());
+//		
+//		if(existCustomer!=null) {
+//			throw new CustomerException("Customer already exists");
+//		}
+//		
+//		Customer new_cust = customerD.save(cust);
+//		
+//		return customerD.save(new_cust);
+//		
+//	}
+//	
+//
+//	@Override
+//	public Customer updateCustomer(Customer cust) throws CustomerException {
+//		
+//		Customer existCustomer = customerD.findByEmail(cust.getEmail());
+//		
+//		if(existCustomer!=null) {
+//			Customer new_cust = customerD.save(cust);
+//			
+//			return customerD.save(new_cust);
+//		}
+//		else
+//		{
+//			return null;
+//		}
+//		
+//		
+//		
+//	}
 	
 
 	@Override
@@ -89,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
 			List<Booking> listOfBookings=customer.getListOfBookingOfCustomer();
 			Booking booking=listOfBookings.get(listOfBookings.size()-1);
 			
-			TicketDetails ticketDetails=booking.getBookedTickets();		
+			TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
 			LocalDate currentDate=LocalDate.now();
 			LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
 			LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();	
@@ -116,7 +117,10 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Override
-	public Customer viewCustomer(Integer custId) throws CustomerException {
+	public Customer viewCustomer(Integer custId, String key){
+		CurrentUserSession currentUserSession=sessionD.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to view customers/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
 		
 		Optional<Customer> custOpt = customerD.findById(custId);
 		
@@ -144,20 +148,17 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-//	@Override
-//	public List<Customer> viewAllCustomer(String location) throws CustomerException {
-//		
-//		List<Customer> customers = customerD.viewAllCustomer(location);
-//		
-//		if(customers.isEmpty())
-//			throw new CustomerException("Customer is not found with given location: "+location);
-//		
-//		else {
-//			List<Customer> customerList = new ArrayList<>(customers);
-//			
-//			return customerList;
-//		}
-//	}
+	@Override
+	public List<Customer> viewAllCustomer(String key ){
+		CurrentUserSession currentUserSession=sessionD.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Login to view customers/Invalid key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+		
+		List<Customer> listOfCustomer=customerD.findAll();
+		
+		return listOfCustomer;
+		
+	}
 
 	
 	

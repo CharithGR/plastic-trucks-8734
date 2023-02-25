@@ -16,5 +16,6 @@ public interface HotelService {
  	public Hotel ViewHotelByName(String hotelName, String uuid)throws HotelException;
  	public Hotel ViewHotelByAddress(String hotelAddress, String uuid)throws HotelException;
 	public List<Hotel> ViewAllHotels(String uuid)throws HotelException;
+	public String deleteHotel(Integer hotelId,String key);
 	
 }

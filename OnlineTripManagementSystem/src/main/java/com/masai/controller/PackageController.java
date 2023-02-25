@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.models.Package;
@@ -53,4 +54,19 @@ public class PackageController {
 		List<Package> packages = packageService.viewAllPackage(uuid);
 		return new ResponseEntity<List<Package>>(packages, HttpStatus.OK);
 	}
+	
+	@PostMapping("/pacakages/hotel")
+	public ResponseEntity<Package> addHotelToPacakage(@RequestParam("packageId")Integer packageId,@RequestParam("HotelId")Integer hotelId,
+			@RequestParam("Key")String key){
+		Package package1=packageService.addHotelToPackage(hotelId, packageId, key);
+		return new ResponseEntity<Package>(package1,HttpStatus.OK);
+	}
+	@PostMapping("/packages/routes")
+	public ResponseEntity<Package> addRouteToPacakage(@RequestParam("packageId")Integer packageId,@RequestParam("RouteId")Integer routeId,
+			@RequestParam("Key")String key){
+		Package package1=packageService.addRouteToPackage(routeId, packageId, key);
+		return new ResponseEntity<Package>(package1,HttpStatus.OK);
+	}
+	
+	
 }

@@ -15,11 +15,13 @@ import com.masai.exceptions.PackageException;
 import com.masai.exceptions.RouteException;
 import com.masai.exceptions.UserException;
 import com.masai.models.Booking;
+import com.masai.models.Bus;
 import com.masai.models.CurrentUserSession;
 import com.masai.models.Customer;
 import com.masai.models.Package;
 import com.masai.models.Route;
 import com.masai.models.TicketDetails;
+import com.masai.models.Travels;
 import com.masai.models.User;
 import com.masai.repository.BookingDAO;
 import com.masai.repository.CustomerDAO;
@@ -80,10 +82,18 @@ public class BookingServiceImpl implements BookingService {
 		TicketDetails ticketDetails=new TicketDetails();	
 		ticketDetails.setTicketRoute(route);
 		ticketDetails.setTicketStatus("Booked");
+		ticketDetails.setBookedTickets(booking);
+//		System.out.println(route);
 		
-		booking.setBookedTickets(ticketDetails);
+//		Travels travels=route.getBusRoute().getTravelBus();
+//		ticketDetails.getTicketRoute().getBusRoute().setTravelBus(travels);
+		
+		
+		TicketDetails bookedTicketDetails= ticketDetailsDAO.save(ticketDetails);
+		
+		booking.setBookedTicketsofCustomer(bookedTicketDetails);
 		Booking savedBooking=bookingDAO.save(booking);
-		ticketDetailsDAO.save(ticketDetails);
+		
 		
 		return savedBooking;
 	}
@@ -101,7 +111,7 @@ public class BookingServiceImpl implements BookingService {
 		
 		if(optional.isPresent()) {
 			Booking booking = optional.get();
-			TicketDetails ticketDetails=booking.getBookedTickets();
+			TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();
 			
 			LocalDate currentDate=LocalDate.now();
 			LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();

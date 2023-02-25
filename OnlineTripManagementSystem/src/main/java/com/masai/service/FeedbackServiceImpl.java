@@ -41,7 +41,12 @@ public class FeedbackServiceImpl implements FeedbackService {
 		else if(existingUser.getUserType().equalsIgnoreCase("admin")) {
 			throw new LoginException("Access denied");
 		} else {
-			Feedback newfdbk = fdao.save(feedback);
+			
+			Customer customer=cdao.findById(existingUser.getUserId()).orElseThrow();
+			feedback.setFeedbackOfCustomer(customer);
+			Feedback newfdbk=fdao.save(feedback);
+			customer.getListOfFeedback().add(newfdbk);
+			cdao.save(customer);
 			return newfdbk;
 		}
 	}

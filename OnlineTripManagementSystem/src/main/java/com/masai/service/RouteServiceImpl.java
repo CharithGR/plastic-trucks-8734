@@ -38,10 +38,11 @@ public class RouteServiceImpl implements RouteService {
 		}
 		else {
 			Package package1=packageDAO.findById(packageId).orElseThrow(()->new PackageException("Invalid Package Id"));
-									
+			route.setRoutePackage(package1);			
 			Route route2 = routeDao.save(route);
 			package1.getListOfRouteinPackage().add(route2);
-			route2.setRoutePackage(package1);
+			packageDAO.save(package1);
+			
 		return route2;
 		}
 	}

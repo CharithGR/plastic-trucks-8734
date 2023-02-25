@@ -3,6 +3,8 @@ package com.masai.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +38,7 @@ public class Travels {
 //	@NotNull(message = "field cannot be empty")
 	private String contact;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "travelBus")
 	List<Bus> listOfBusOfTravels=new ArrayList<>();
 }

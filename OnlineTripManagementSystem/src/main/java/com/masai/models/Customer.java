@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -37,6 +38,7 @@ public class Customer {
 //	@NotNull(message = "field cannot be empty")
 //    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
 //    message = "password must contain atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String customerPassword;
 	
 //	@NotNull(message = "field cannot be empty")

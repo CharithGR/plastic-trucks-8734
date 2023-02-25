@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,12 @@ public class HotelController {
 	public ResponseEntity<List<Hotel>> ViewAllHotelHandler(@RequestParam("Key")String key){
 		List<Hotel> hotel = hService.ViewAllHotels(key);
 		return new ResponseEntity<List<Hotel>>(hotel, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/hotels")
+	public ResponseEntity<String> removeHotel(@RequestParam("hotelId")Integer hotelId, @RequestParam("Key")String key){
+		String res=hService.deleteHotel(hotelId, key);
+		return new ResponseEntity<String>(res,HttpStatus.OK);
 	}
 
 }
