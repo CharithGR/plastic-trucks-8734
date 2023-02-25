@@ -23,9 +23,9 @@ public class routeController {
 	@Autowired
 	RouteService routeService;
 	
-	@PostMapping("/routes")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route){
-		Route route2 = routeService.AddRoute(route);
+	@PostMapping("/routes/{key}")
+	public ResponseEntity<Route> addRoute(@RequestBody Route route , @PathVariable String key){
+		Route route2 = routeService.AddRoute(route,key);
 		return new ResponseEntity<Route>(route2,HttpStatus.OK);
 	}
 	
@@ -35,9 +35,9 @@ public class routeController {
 		return new ResponseEntity<List<Route>>(routeList,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/routes/{routeId}")
-	public ResponseEntity<Route> removeRoute(@PathVariable("routeId") int routeId) throws RouteException{
-		Route route = routeService.RemoveRoute(routeId);
+	@DeleteMapping("/routes/{routeId}/{key}")
+	public ResponseEntity<Route> removeRoute(@PathVariable("routeId") int routeId, @PathVariable String key) throws RouteException{
+		Route route = routeService.RemoveRoute(routeId,key);
 		return new ResponseEntity<Route>(route,HttpStatus.OK);
 	}
 	
@@ -47,9 +47,9 @@ public class routeController {
 		return new ResponseEntity<Route>(route,HttpStatus.FOUND);
 	}
 	
-	@PutMapping("/routes")
-	public ResponseEntity<Route> UpdateRoute(@RequestBody Route route){
-		Route route2=routeService.UpdateRoute(route);
+	@PutMapping("/routes/{key}")
+	public ResponseEntity<Route> UpdateRoute(@RequestBody Route route, @PathVariable String key){
+		Route route2=routeService.UpdateRoute(route,key);
 		return new ResponseEntity<Route>(route2,HttpStatus.OK);
 	}
 	

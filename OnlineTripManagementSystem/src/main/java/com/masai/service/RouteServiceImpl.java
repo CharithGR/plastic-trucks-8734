@@ -6,43 +6,76 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.RouteException;
+import com.masai.exceptions.UserException;
+import com.masai.models.CurrentUserSession;
 import com.masai.models.Route;
 import com.masai.repository.RouteDAO;
+import com.masai.repository.SessionDAO;
 
 @Service
 public class RouteServiceImpl implements RouteService {
 	@Autowired
 	RouteDAO routeDao;//Jpa repositry
+	@Autowired
+	private SessionDAO sdao;
 	
 //====================================================ADD ROUTE SERVICE=====================================================
 	@Override
-	public Route AddRoute(Route route) {
+	public Route AddRoute(Route route ,String UUID) {
+		CurrentUserSession existingUser = sdao.findByUuid(UUID);
+		if(existingUser == null) {
+			throw new UserException("User not Logged In");
+		}
+		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
+			throw new LoginException("Access denied");
+		}
+		else {
 		Route route2 = routeDao.save(route);
 		return route;
+		}
 	}
 //====================================================UPDATE ROUTE SERVICE===================================================
 
 	@Override
-	public Route UpdateRoute(Route route) throws RouteException {
+	public Route UpdateRoute(Route route ,String UUID) throws RouteException {
+		CurrentUserSession existingUser = sdao.findByUuid(UUID);
+		if(existingUser == null) {
+			throw new UserException("User not Logged In");
+		}
+		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
+			throw new LoginException("Access denied");
+		}
+		else {
 		Optional<Route> route2=routeDao.findById(route.getRouteId());
 		if(route2.isPresent()){
 			routeDao.save(route);
 			return route;
 		}
 		throw new RouteException();
+		}
 	}
 	
 //====================================================DELETE ROUTE SERVICE=====================================================
 
 	@Override
-	public Route RemoveRoute(Integer RouteId) throws RouteException {
+	public Route RemoveRoute(Integer RouteId ,String UUID) throws RouteException {
+		CurrentUserSession existingUser = sdao.findByUuid(UUID);
+		if(existingUser == null) {
+			throw new UserException("User not Logged In");
+		}
+		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
+			throw new LoginException("Access denied");
+		}
+		else {
 		Optional<Route> rOpt=routeDao.findById(RouteId);
 		if (!rOpt.isPresent()) {
 			throw new RouteException("This Route is not present in database to delete.");
 		}
 		routeDao.delete(rOpt.get());
 		return rOpt.get();
+		}
 	}
 //====================================================VIEW ROUTE BY ID SERVICE==================================================
 	@Override

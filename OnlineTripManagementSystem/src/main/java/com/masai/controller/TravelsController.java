@@ -23,9 +23,9 @@ public class TravelsController {
 	@Autowired
 	TravelsService travelsService;
 	
-	@PostMapping("/travels")
-	public ResponseEntity<Travels> addTravles(@RequestBody Travels travels) throws TravelsException{
-		Travels travels2 = travelsService.addTravels(travels); 
+	@PostMapping("/travels/{key}")
+	public ResponseEntity<Travels> addTravles(@RequestBody Travels travels,@PathVariable String key) throws TravelsException{
+		Travels travels2 = travelsService.addTravels(travels,key); 
 		return new ResponseEntity<Travels>(travels2,HttpStatus.OK);
 	}
 	
@@ -35,15 +35,15 @@ public class TravelsController {
 		return new ResponseEntity<List<Travels>>(travelsList,HttpStatus.OK);
 	}
 	
-	@PutMapping("/travels")
-	public ResponseEntity<Travels> updateTravels(@RequestBody Travels travels) throws TravelsException{
-		Travels travels2 = travelsService.updateTravels(travels);
+	@PutMapping("/travels/{key}")
+	public ResponseEntity<Travels> updateTravels(@RequestBody Travels travels,@PathVariable String key) throws TravelsException{
+		Travels travels2 = travelsService.updateTravels(travels,key);
 		return new ResponseEntity<Travels>(travels2,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/travels/{id}")
-	public ResponseEntity<Travels> deleteTravels(@PathVariable("id") int id){
-		Travels travels=travelsService.removeTravels(id);
+	@DeleteMapping("/travels/{id}/{key}")
+	public ResponseEntity<Travels> deleteTravels(@PathVariable("id") int id,@PathVariable String key){
+		Travels travels=travelsService.removeTravels(id,key);
 		return new ResponseEntity<Travels>(travels,HttpStatus.OK);
 	}
 	

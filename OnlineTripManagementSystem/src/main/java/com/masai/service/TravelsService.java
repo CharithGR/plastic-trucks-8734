@@ -9,9 +9,9 @@ import com.masai.models.Travels;
 
 @Service
 public interface TravelsService {
-	Travels addTravels(Travels travels)  throws TravelsException;
-	Travels updateTravels(Travels travels) throws TravelsException;
-	Travels removeTravels(int travelId) throws TravelsException;
+	Travels addTravels(Travels travels , String uuid)  throws TravelsException;
+	Travels updateTravels(Travels travels , String uuid) throws TravelsException;
+	Travels removeTravels(int travelId , String uuid) throws TravelsException;
 	Travels searchTravels(int travelId) throws TravelsException;
 	List<Travels> viewTravels() throws TravelsException;
 }
