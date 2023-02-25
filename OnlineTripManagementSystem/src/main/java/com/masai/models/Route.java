@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Future;
@@ -57,8 +58,13 @@ public class Route {
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime doj; 
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "routeOfBus")
-	private List<Bus> listOfBusInRoute=new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeOfBus")
+	private Bus BusRoute;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Package routePackage;
+		
 	
 	
 	@OneToOne

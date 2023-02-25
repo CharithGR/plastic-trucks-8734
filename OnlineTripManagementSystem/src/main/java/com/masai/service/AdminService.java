@@ -10,15 +10,15 @@ import com.masai.models.Customer;
 @Service
 public interface AdminService {
 
-
+		public void addAdmin();
 	
-			Customer addCustomer(Customer cust) throws CustomerException;
+		public Customer addCustomer(Customer cust) throws CustomerException;
 			
-			Customer updateCustomer(Customer cust) throws CustomerException;
+		public	Customer updateCustomer(Customer cust) throws CustomerException;
 			
-			Customer removeCustomer(Integer custId) throws CustomerException;
+		public	String removeCustomer(Integer custId,String key) throws CustomerException;
 			
-			Customer viewCustomer(Integer custId) throws CustomerException;
+		public	Customer viewCustomer(Integer custId) throws CustomerException;
 			
 //			List<Customer> viewAllCustomer(String location) throws CustomerException;
 				

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.HotelException;
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.UserException;
 import com.masai.models.CurrentUserSession;
 import com.masai.models.Hotel;
@@ -29,6 +30,8 @@ public class HotelServiceImpl implements HotelService{
 		if(existingUser == null) {
 			throw new UserException("User not logged in");
 		}
+		if(existingUser.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+
 		Hotel newHotel = hdao.save(hotel);
 		return newHotel;
 	}
@@ -39,6 +42,9 @@ public class HotelServiceImpl implements HotelService{
 		if(existingUser == null) {
 			throw new UserException("User not logged in");
 		} else {
+			
+			if(existingUser.getUserType().equalsIgnoreCase("customer"))throw new LoginException("Access Denied");
+			
 			Optional<Hotel> opt = hdao.findById(hotel.getHotelId());
 			if(opt.isPresent()) {
 				Hotel updated = hdao.save(hotel);

@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.LoginException;
+import com.masai.exceptions.PackageException;
 import com.masai.exceptions.RouteException;
 import com.masai.exceptions.UserException;
 import com.masai.models.CurrentUserSession;
+import com.masai.models.Package;
 import com.masai.models.Route;
+import com.masai.repository.PackageDAO;
 import com.masai.repository.RouteDAO;
 import com.masai.repository.SessionDAO;
 
@@ -20,10 +23,12 @@ public class RouteServiceImpl implements RouteService {
 	RouteDAO routeDao;//Jpa repositry
 	@Autowired
 	private SessionDAO sdao;
+	@Autowired
+	private PackageDAO packageDAO;
 	
 //====================================================ADD ROUTE SERVICE=====================================================
 	@Override
-	public Route AddRoute(Route route ,String UUID) {
+	public Route AddRoute(Route route ,Integer packageId,String UUID) {
 		CurrentUserSession existingUser = sdao.findByUuid(UUID);
 		if(existingUser == null) {
 			throw new UserException("User not Logged In");
@@ -32,8 +37,12 @@ public class RouteServiceImpl implements RouteService {
 			throw new LoginException("Access denied");
 		}
 		else {
-		Route route2 = routeDao.save(route);
-		return route;
+			Package package1=packageDAO.findById(packageId).orElseThrow(()->new PackageException("Invalid Package Id"));
+									
+			Route route2 = routeDao.save(route);
+			package1.getListOfRouteinPackage().add(route2);
+			route2.setRoutePackage(package1);
+		return route2;
 		}
 	}
 //====================================================UPDATE ROUTE SERVICE===================================================
@@ -50,8 +59,7 @@ public class RouteServiceImpl implements RouteService {
 		else {
 		Optional<Route> route2=routeDao.findById(route.getRouteId());
 		if(route2.isPresent()){
-			routeDao.save(route);
-			return route;
+			return routeDao.save(route);
 		}
 		throw new RouteException();
 		}

@@ -84,27 +84,27 @@ public class FeedbackServiceImpl implements FeedbackService {
 //			}
 //		}
 //	}
-
-	@Override
-	public List<Feedback> ViewAllFeedback(String uuid) throws FeedbackException {
-		CurrentUserSession existingUser = sdao.findByUuid(uuid);
-		if(existingUser == null) {
-			throw new UserException("User not Logged In");
-		}
-		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
-			List<Feedback> feedback = cdao.findByListOfFeedback();
-			if (feedback.size() == 0)
-				throw new FeedbackException("No Feedback found..");
-			else
-				return feedback;
-		} else {
-			List<Feedback> feedback = fdao.findAll();
-			if (feedback.size() == 0)
-				throw new FeedbackException("No Feedback found..");
-			else
-				return feedback;
-		}
-	}
+//
+//	@Override
+//	public List<Feedback> ViewAllFeedback(String uuid) throws FeedbackException {
+//		CurrentUserSession existingUser = sdao.findByUuid(uuid);
+//		if(existingUser == null) {
+//			throw new UserException("User not Logged In");
+//		}
+//		else if(existingUser.getUserType().equalsIgnoreCase("customer")) {
+//			List<Feedback> feedback = cdao.findByListOfFeedback();
+//			if (feedback.size() == 0)
+//				throw new FeedbackException("No Feedback found..");
+//			else
+//				return feedback;
+//		} else {
+//			List<Feedback> feedback = fdao.findAll();
+//			if (feedback.size() == 0)
+//				throw new FeedbackException("No Feedback found..");
+//			else
+//				return feedback;
+//		}
+//	}
 }
 
 

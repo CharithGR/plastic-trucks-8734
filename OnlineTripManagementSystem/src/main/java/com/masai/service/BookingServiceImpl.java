@@ -1,5 +1,7 @@
 package com.masai.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,17 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.BookingException;
+import com.masai.exceptions.CustomerException;
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.PackageException;
+import com.masai.exceptions.RouteException;
 import com.masai.exceptions.UserException;
 import com.masai.models.Booking;
 import com.masai.models.CurrentUserSession;
 import com.masai.models.Customer;
 import com.masai.models.Package;
+import com.masai.models.Route;
+import com.masai.models.TicketDetails;
 import com.masai.models.User;
 import com.masai.repository.BookingDAO;
 import com.masai.repository.CustomerDAO;
 import com.masai.repository.PackageDAO;
+import com.masai.repository.RouteDAO;
 import com.masai.repository.SessionDAO;
+import com.masai.repository.TicketDetailsDAO;
 import com.masai.repository.UserDAO;
 
 @Service
@@ -36,24 +45,51 @@ public class BookingServiceImpl implements BookingService {
 	PackageDAO packageDAO;
 	
 	@Autowired
-	CustomerDAO customerDAO;
+	CustomerDAO customerDAO;	
+	
+	@Autowired
+	RouteDAO routeDAO;
+	
+	@Autowired
+	TicketDetailsDAO ticketDetailsDAO;
 
 	@Override
-	public Booking makeBooking(Booking booking, String uuid, Integer packageId) throws BookingException, UserException, PackageException {
-		CurrentUserSession existingUser = sessionDAO.findByUuid(uuid);
-		
+	public Booking makeBooking(Integer packageId,Integer noOftickets,Integer routeId, String uuid ) throws BookingException, UserException, PackageException {
+		CurrentUserSession existingUser = sessionDAO.findByUuid(uuid);		
 		if(existingUser == null) {
 			throw new UserException("User not logged in");
 		}
+		if(existingUser.getUserType().equalsIgnoreCase("admin"))throw new LoginException("Access Denied");
+				
+		Package currentPackage= packageDAO.findById(packageId).orElseThrow(()-> new PackageException("Invalid Package"));
+		Route route=routeDAO.findById(routeId).orElseThrow(()->new RouteException("Invalid RouteId"));
+
 		
-		packageDAO.findById(packageId).orElseThrow(()-> new PackageException("Invalid Package"));
+		Customer customer=customerDAO.findById(existingUser.getUserId()).orElseThrow();
 		
 		
-		return bookingDAO.save(booking);
+		Booking booking=new Booking();
+		booking.setBookingDate(LocalDate.now());
+		booking.setBookingType(currentPackage.getPackageType());
+		booking.setDescription(currentPackage.getPackageDescription());
+		booking.setTitle(currentPackage.getPackageName());
+		booking.setNoOfTickets(noOftickets);
+		booking.setBookingUser(customer);		
+		
+		
+		TicketDetails ticketDetails=new TicketDetails();	
+		ticketDetails.setTicketRoute(route);
+		ticketDetails.setTicketStatus("Booked");
+		
+		booking.setBookedTickets(ticketDetails);
+		Booking savedBooking=bookingDAO.save(booking);
+		ticketDetailsDAO.save(ticketDetails);
+		
+		return savedBooking;
 	}
 
 	@Override
-	public Booking cancelBooking(Integer bookingId, String uuid) throws BookingException, UserException {
+	public String cancelBooking(Integer bookingId, String uuid) throws BookingException, UserException {
 		
 		CurrentUserSession existingUser = sessionDAO.findByUuid(uuid);
 		
@@ -65,9 +101,23 @@ public class BookingServiceImpl implements BookingService {
 		
 		if(optional.isPresent()) {
 			Booking booking = optional.get();
-			bookingDAO.delete(booking);
+			TicketDetails ticketDetails=booking.getBookedTickets();
 			
-			return booking;
+			LocalDate currentDate=LocalDate.now();
+			LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
+			LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();
+			if(currentDate.isBefore(departureDate)){
+				bookingDAO.delete(booking);
+				return "Booking canceled";
+			}else {
+				if(currentDate.isBefore(arrivalDate)) {
+					throw new BookingException("Cannot cancel ongoing trip");
+				}else {
+					throw new BookingException("Cannot cancel completed trip");
+				}				
+				
+			}
+			
 		}
 		else
 			throw new BookingException("There is no booking with bookinId :"+bookingId);
@@ -110,12 +160,10 @@ public class BookingServiceImpl implements BookingService {
 			else
 				return bookings;
 		}
-		else {
+		else {			
 			
-			String userUuid = exUserSession.getUuid();
-			User U = userDAO.findByUuidUser(userUuid);
 			
-			Customer customer = customerDAO.findByCustomerUser(U);
+			Customer customer = customerDAO.findById(exUserSession.getUserId()).orElseThrow(()->new CustomerException("invalid Customer id"));
 			
 			
 			

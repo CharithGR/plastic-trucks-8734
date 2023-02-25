@@ -14,13 +14,13 @@ import com.masai.models.User;
 public interface CustomerDAO extends JpaRepository<Customer, Integer>{
 	
 	public Customer findByEmail(String email);
-	public Customer  findByCustomerUser(User customerUser);
+//	public Customer  findByCustomerUser(User customerUser);
 
 
 //	@Query("select a.Customer from Address a where a.city=?1")
 //	List<Customer> viewAllCustomer(String location);
 	
-	public List<Feedback> findByListOfFeedback();
+//	public List<Feedback> findByListOfFeedback();
 
 }
 

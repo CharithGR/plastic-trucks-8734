@@ -6,6 +6,6 @@ import com.masai.models.User;
 
 public interface UserDAO extends JpaRepository<User, Integer> {
 	
-	public User findByUuidUser(String uuid);
+//	public User findByUuidUser(String uuid);
 
 }

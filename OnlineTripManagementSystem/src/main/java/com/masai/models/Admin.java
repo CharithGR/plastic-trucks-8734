@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Admin {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 	
 //	@NotNull(message = "field cannot be empty")
@@ -46,8 +46,8 @@ public class Admin {
 //	@Pattern(regexp = "[6789]{1}[0-9]{9}", message = "Mobile Number Should be 10 digit, should be start with(6,7,8,9)")
 	private String mobile;
 	
-	@OneToOne
-	private User adminUser;
+//	@OneToOne
+//	private User adminUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "reportAdmin")
 	private List<Report> listOfReport=new ArrayList<>();
