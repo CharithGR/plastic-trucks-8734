@@ -28,21 +28,21 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Admin Name cannot be empty")
 	private String adminName;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter the Password")
 //    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
 //    message = "password must contain atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
 	private String password;
 	
 
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter Email")
 //	@Column(unique = true)
 //	@Email(message = "Enter a valid email")
 	private String email;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter Mobile Number")
 //	@Pattern(regexp = "[6789]{1}[0-9]{9}", message = "Mobile Number Should be 10 digit, should be start with(6,7,8,9)")
 	private String mobile;
 	

@@ -31,16 +31,16 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the booking Type")
 	private String bookingType;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter description")
 	private String description;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter title")
 	private String title;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the booking date")
 //	@PastOrPresent
 //	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate bookingDate;

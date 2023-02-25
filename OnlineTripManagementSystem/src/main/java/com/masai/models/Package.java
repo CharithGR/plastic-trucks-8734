@@ -28,19 +28,19 @@ public class Package {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer packageId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the package name")
 	private String packageName;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add package desciption")
 	private String packageDescription;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add package type")
 	private String packageType;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the package cost")
 	private double packageCost;
 	
-	//	@NotNull(message = "field cannot be empty")
+	//	@NotNull(message = "Enter the payment details")
 	private String paymentDetails;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

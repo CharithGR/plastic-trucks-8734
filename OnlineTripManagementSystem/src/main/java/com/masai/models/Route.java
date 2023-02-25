@@ -30,29 +30,29 @@ public class Route {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer routeId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Route from field cannot be empty ")
 	private String routeFrom;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Route to field cannot be empty ")
 	private String routeTo;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the pickup point")
 	private String pickupPoint;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter fare")
 	private double fare;		
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter time of departure")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime departureTime;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter time of arrival")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime arrivalTime; 
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter date of journey")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime doj; 

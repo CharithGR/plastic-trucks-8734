@@ -28,15 +28,15 @@ public class Feedback {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer feedbackId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add feedback here")
 	private String feedback;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please give rating")
 //    @Pattern(regexp = "^((?=.*[*])(?=.*[1-5])){2}$",
 //    message = "Rating must contain atleast 1 (*) and 1 digit from 1 to 5, length should be 2")
 	private Double rating;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the feedback submission date")
 //	@PastOrPresent
 //	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate submitDate;

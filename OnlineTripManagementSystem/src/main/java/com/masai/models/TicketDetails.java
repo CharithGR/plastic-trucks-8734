@@ -25,7 +25,7 @@ public class TicketDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
 	
-	@NotNull(message = "field cannot be empty")
+	@NotNull(message = "Please enter ticket status")
 	private String ticketStatus;
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeTicket")

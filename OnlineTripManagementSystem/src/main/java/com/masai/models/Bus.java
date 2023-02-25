@@ -24,14 +24,14 @@ public class Bus {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter bus type")
 	private String busType;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter bus number")
 //	@Size(min = 4, max = 4, message="Length  of Bus Number should be of 4 digits")
 	private String busNumber;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter capacity")
 	private Integer capacity;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
