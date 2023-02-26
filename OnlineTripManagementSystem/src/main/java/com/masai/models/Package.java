@@ -39,18 +39,7 @@ public class Package {
 	
 	
 //	@NotNull(message = "Enter the package cost")
-	private double packageCost;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private double packageCost;	
 	
 	
 	
