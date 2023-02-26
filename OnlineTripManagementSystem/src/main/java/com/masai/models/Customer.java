@@ -1,10 +1,10 @@
+
 package com.masai.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,30 +32,29 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please Enter Customer name")
 	private String customerName;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter password")
 //    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
 //    message = "password must contain atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String customerPassword;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter email id")
 //	@Column(unique = true)
 //	@Email(message = "Enter a valid email")
 	private String email;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter mobile number")
 //	@Pattern(regexp = "[6789]{1}[0-9]{9}", message = "Mobile Number Should be 10 digit, should be start with(6,7,8,9)")
 	private String mobile;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter address")
 	private String address;
 	
-//	@ManyToOne
-//	@JsonIgnore
-//	private User customerUser;
+	@ManyToOne
+	@JsonIgnore
+	private User customerUser;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "feedbackOfCustomer")
 	private List<Feedback> listOfFeedback = new ArrayList<>();

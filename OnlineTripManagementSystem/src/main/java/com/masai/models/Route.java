@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Future;
@@ -31,43 +30,38 @@ public class Route {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer routeId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Route from field cannot be empty ")
 	private String routeFrom;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Route to field cannot be empty ")
 	private String routeTo;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the pickup point")
 	private String pickupPoint;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Please enter fare")
 	private double fare;		
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter time of departure")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime departureTime;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter time of arrival")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime arrivalTime; 
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter date of journey")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime doj; 
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeOfBus")
-	private Bus BusRoute;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "routeOfBus")
+	private List<Bus> listOfBusInRoute=new ArrayList<>();
 	
+	
+	@OneToOne
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Package routePackage;
-	
-	
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "ticketRoute")
-	@JsonIgnore
-	private List<TicketDetails> routeTickets=new ArrayList<>();
+	private TicketDetails routeTicket;
 }
