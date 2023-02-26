@@ -25,15 +25,23 @@ public class TicketDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
 	
+	
+	
 	@NotNull(message = "Please enter ticket status")
 	private String ticketStatus;
+	
+	
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeTicket")
 	private Route ticketRoute;
 	
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Package ticketPackage;
+	
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore

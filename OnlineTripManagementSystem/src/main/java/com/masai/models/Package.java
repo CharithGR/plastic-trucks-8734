@@ -37,6 +37,8 @@ public class Package {
 //	@NotNull(message = "Add package desciption")
 	private String packageDescription;
 	
+	
+	
 //	@NotNull(message = "Add package type")
 	private String packageType;
 	
