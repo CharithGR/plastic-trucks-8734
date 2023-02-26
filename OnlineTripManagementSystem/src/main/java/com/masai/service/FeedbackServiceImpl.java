@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 			
 			Customer customer=cdao.findById(existingUser.getUserId()).orElseThrow();
 			feedback.setFeedbackOfCustomer(customer);
+			feedback.setSubmitDate(LocalDate.now());
 			Feedback newfdbk=fdao.save(feedback);
 			customer.getListOfFeedback().add(newfdbk);
 			cdao.save(customer);

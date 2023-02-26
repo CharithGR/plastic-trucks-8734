@@ -116,10 +116,8 @@ public class BookingServiceImpl implements BookingService {
 			throw new UserException("Please log in first");
 		}
 		
-		Optional<Booking> optional = bookingDAO.findById(bookingId);
+		Booking booking = bookingDAO.findById(bookingId).orElseThrow(()->new BookingException("There is no booking with bookinId :"+bookingId));
 		
-		if(optional.isPresent()) {
-			Booking booking = optional.get();
 			TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();
 			
 			LocalDate currentDate=LocalDate.now();
@@ -137,9 +135,8 @@ public class BookingServiceImpl implements BookingService {
 				
 			}
 			
-		}
-		else
-			throw new BookingException("There is no booking with bookinId :"+bookingId);
+		
+		
 	}
 
 	@Override

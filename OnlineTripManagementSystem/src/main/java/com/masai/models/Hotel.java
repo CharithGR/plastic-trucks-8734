@@ -39,7 +39,7 @@ public class Hotel {
 	private String address;
 	
 //	@NotNull(message = "field cannot be empty")
-	private Double rent;
+//	private Double rent;
 	
 //	@NotNull(message = "field cannot be empty")
 	private String status;

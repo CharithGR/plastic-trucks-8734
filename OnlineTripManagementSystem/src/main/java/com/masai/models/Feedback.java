@@ -43,8 +43,8 @@ public class Feedback {
 	
 //	@NotNull(message = "field cannot be empty")
 //	@PastOrPresent
-	@JsonFormat(pattern = "dd/mm/yyyy")
-	private LocalDate submitDate=LocalDate.now();
+//	@JsonFormat(pattern = "dd/mm/yyyy")
+	private LocalDate submitDate;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
