@@ -42,6 +42,19 @@ public class Package {
 	private double packageCost;
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//	@NotNull(message = "Enter the payment details")
 	private String paymentDetails;
 	
