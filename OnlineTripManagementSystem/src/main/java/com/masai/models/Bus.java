@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +27,8 @@ public class Bus {
 	private Integer busId;
 	
 //	@NotNull(message = "field cannot be empty")
-	private String busType;
+	@Enumerated(EnumType.STRING)
+	private BusType busType;
 	
 //	@NotNull(message = "field cannot be empty")
 //	@Size(min = 4, max = 4, message="Length  of Bus Number should be of 4 digits")

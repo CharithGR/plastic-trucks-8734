@@ -92,23 +92,26 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer=customerD.findById(loggedInUser.getUserId()).orElseThrow(()->new LoginException("Invalid key"));
 		
 		List<Booking> listOfBookings=customer.getListOfBookingOfCustomer();
-		Booking booking=listOfBookings.get(listOfBookings.size()-1);
-		
-		TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
-		LocalDate currentDate=LocalDate.now();
-		LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
-		LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();		
-		if(currentDate.isBefore(departureDate)){
-			bookingDAO.delete(booking);
-			return "Cannot Delete account, you have an upcoming trip, cancel the booking to delete account";
-		}else {
-			if(currentDate.isBefore(arrivalDate)) {
-				throw new BookingException("Cannot Delete account, you have an ongoing trip");
+		for(Booking booking:listOfBookings) {
+			
+			TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
+			LocalDate currentDate=LocalDate.now();
+			LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
+			LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();		
+			if(currentDate.isBefore(departureDate)){
+				bookingDAO.delete(booking);
+				return "Cannot Delete account, you have an upcoming trip, cancel the booking to delete account";
 			}else {
+				if(currentDate.isBefore(arrivalDate)) {
+					throw new BookingException("Cannot Delete account, you have an ongoing trip");
+				}
+			}
+		}
+				sessionD.delete(loggedInUser);
 				
 				customerD.delete(customer);				
 				return "Account Deleted";
-			}				
+							
 			
 		}
 		
@@ -116,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		
 					
-	}
+	
 	
 
 	@Override
