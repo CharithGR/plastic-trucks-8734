@@ -1,4 +1,3 @@
-
 package com.masai.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,10 +22,10 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reportId;
 	
-	//	@NotNull(message = "field cannot be empty")
+	//	@NotNull(message = "Enter report name")
 	private String reportName;
 	
-	//	@NotNull(message = "field cannot be empty")
+	//	@NotNull(message = "Enter report type")
 	private String reportType;
 	
 	@ManyToOne

@@ -1,4 +1,3 @@
-
 package com.masai.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,18 +24,26 @@ public class TicketDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
 	
-	@NotNull(message = "field cannot be empty")
-	private String ticketStatus="Not Booked";
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	
+	@NotNull(message = "Please enter ticket status")
+	private String ticketStatus;
+	
+	
+	
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeTicket")
 	private Route ticketRoute;
 	
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JsonIgnore
-//	private Package ticketPackage;
 	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)	
+	private Package ticketPackage;
+	
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Booking bookedTickets;
 	
 }

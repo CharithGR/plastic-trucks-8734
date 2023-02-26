@@ -3,8 +3,6 @@ package com.masai.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,24 +24,24 @@ public class Hotel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer hotelId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the hotel name")
 	private String hotelName;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter hotel type")
 	private String hotelType;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add description of hotel")
 	private String hotelDescription;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter address of hotel")
 	private String address;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter hotel charges")
 	private Double rent;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = Please enter status")
 	private String status;
-	@JsonIgnore
+	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "packageHotel")
 	private List<Package> listOfPackageOfHotel=new ArrayList<>();
 	

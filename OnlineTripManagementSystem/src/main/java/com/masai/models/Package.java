@@ -26,33 +26,33 @@ public class Package {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer packageId;
+	private Integer packageId;	
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter the package name")
 	private String packageName;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add package desciption")
 	private String packageDescription;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Add package type")
 	private String packageType;
 	
-//	@NotNull(message = "field cannot be empty")
-	private double packageCost;
 	
-	//	@NotNull(message = "field cannot be empty")
-//	private String paymentDetails;
+//	@NotNull(message = "Enter the package cost")
+	private double packageCost;	
 	
-	@ManyToOne(cascade = CascadeType.ALL)	
+	
+	
+	
+	//	@NotNull(message = "Enter the payment details")
+	private String paymentDetails;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Hotel packageHotel;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "routePackage")
-	private List<Route> listOfRouteinPackage=new ArrayList<>();
-	
-	
-	
-//	@OneToMany(cascade =CascadeType.ALL,mappedBy = "ticketPackage")
-//	List<TicketDetails> listOfTicketDeatils=new ArrayList<>();
+	@OneToMany(cascade =CascadeType.ALL,mappedBy = "ticketPackage")
+	List<TicketDetails> listOfTicketDeatils=new ArrayList<>();
 	
 }

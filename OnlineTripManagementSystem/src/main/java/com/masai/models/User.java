@@ -1,4 +1,3 @@
-
 package com.masai.models;
 
 import java.util.ArrayList;
@@ -29,19 +28,19 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "Enter user type")
 	private String userType;
 	
-//	@NotNull(message = "field cannot be empty")
+//	@NotNull(message = "enter password")
 //    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
 //    message = "password must contain atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
 	private String password;
 	
 	
-//	@OneToOne(cascade = CascadeType.ALL,mappedBy = "adminUser")
-//	@JsonIgnore
-//	private Admin admin;
-//	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customerUser")
-//	List<Customer> listOfCustomers=new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "adminUser")
+	@JsonIgnore
+	private Admin admin;
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customerUser")
+	List<Customer> listOfCustomers=new ArrayList<>();
 }
