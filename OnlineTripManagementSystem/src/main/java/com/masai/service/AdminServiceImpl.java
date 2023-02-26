@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.BookingException;
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
@@ -83,35 +84,41 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String removeCustomer(Integer custId,String key) throws CustomerException {
 		
-		Optional<Customer> custOpt = customerD.findById(custId);
+		CurrentUserSession currentUserSession=sessionD.findByUuid(key);
+		if(currentUserSession==null)throw new LoginException("Invalid Key");
+		if(currentUserSession.getUserType().equalsIgnoreCase("customer"))throw new AdminException("Access Denied");
 		
-		if(custOpt!=null) {
-			Customer customer=custOpt.get();
+		Customer customer = customerD.findById(custId).orElseThrow(()->new CustomerException("Invalid Customer id"));
+		
 			List<Booking> listOfBookings=customer.getListOfBookingOfCustomer();
-			Booking booking=listOfBookings.get(listOfBookings.size()-1);
 			
-			TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
-			LocalDate currentDate=LocalDate.now();
-			LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
-			LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();	
-			
-			if(currentDate.isBefore(departureDate)){
-				bookingDAO.delete(booking);
-				return "Cannot Delete account,this customer has an upcoming trip";
-			}else {
-				if(currentDate.isBefore(arrivalDate)) {
-					throw new BookingException("Cannot Delete account, this customer has an ongoing trip");
+			for(Booking booking:listOfBookings) {
+				TicketDetails ticketDetails=booking.getBookedTicketsofCustomer();		
+				LocalDate currentDate=LocalDate.now();
+				LocalDate departureDate=ticketDetails.getTicketRoute().getDepartureTime().toLocalDate();
+				LocalDate arrivalDate=ticketDetails.getTicketRoute().getArrivalTime().toLocalDate();	
+				
+				if(currentDate.isBefore(departureDate)){
+					bookingDAO.delete(booking);
+					return "Cannot Delete account,this customer has an upcoming trip";
 				}else {
+					if(currentDate.isBefore(arrivalDate)) {
+						throw new BookingException("Cannot Delete account, this customer has an ongoing trip");
+					}
+					
+				}
+			}
+			
+				Optional<CurrentUserSession> customerLogedIn=sessionD.findById(custId);
+				if(customerLogedIn.isPresent()) {
+					sessionD.delete(customerLogedIn.get());
+				}
+					
 					
 					customerD.delete(customer);				
 					return "Account Deleted";
-				}								
-			}		
-			
-		}
-		else {
-			throw new CustomerException("Invalid customer ID");
-		}
+					
+		
 					
 	}
 	

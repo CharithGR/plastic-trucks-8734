@@ -65,7 +65,16 @@ public class BookingServiceImpl implements BookingService {
 				
 		Package currentPackage= packageDAO.findById(packageId).orElseThrow(()-> new PackageException("Invalid Package"));
 		Route route=routeDAO.findById(routeId).orElseThrow(()->new RouteException("Invalid RouteId"));
-
+		
+		boolean flag=false;
+		List<Route> listOfpackageRoute=currentPackage.getListOfRouteinPackage();
+		for(Route x:listOfpackageRoute) {
+			if(x.equals(route)) {
+				flag=true;
+					break;
+			}
+		}
+		if(flag==false)throw new RouteException("This route is not avalable in the selected package");
 		
 		Customer customer=customerDAO.findById(existingUser.getUserId()).orElseThrow(()-> new CustomerException("Customer not found"));
 		
