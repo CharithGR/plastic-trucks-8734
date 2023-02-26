@@ -41,7 +41,7 @@ public class Route {
 	private String pickupPoint;
 	
 //	@NotNull(message = "field cannot be empty")
-//	private double fare;		
+	private double fare;		
 	
 //	@NotNull(message = "field cannot be empty")
 //	@Future
