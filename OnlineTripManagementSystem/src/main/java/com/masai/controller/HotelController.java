@@ -38,17 +38,17 @@ public class HotelController {
 		return new ResponseEntity<Hotel>(updatedHotel, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/hotels/{hotelName}")
-	public ResponseEntity<Hotel> ViewHotelByNameHandler(@PathVariable("hotelName") String hotelName,@RequestParam("Key")String key){
-		Hotel hotel = hService.ViewHotelByName(hotelName,key);
-		return new ResponseEntity<Hotel>(hotel, HttpStatus.OK);
-	}
-	
-	@GetMapping("/hotels/{hotelAddress}")
-	public ResponseEntity<Hotel> ViewHotelByAddressHandler(@PathVariable("hotelAddress") String hotelAddress,@RequestParam("Key")String key){
-		Hotel hotel = hService.ViewHotelByAddress(hotelAddress,key);
-		return new ResponseEntity<Hotel>(hotel, HttpStatus.OK);
-	}	
+//	@GetMapping("/hotels/{hotelName}")
+//	public ResponseEntity<Hotel> ViewHotelByNameHandler(@PathVariable("hotelName") String hotelName,@RequestParam("Key")String key){
+//		Hotel hotel = hService.ViewHotelByName(hotelName,key);
+//		return new ResponseEntity<Hotel>(hotel, HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/hotels/{hotelAddress}")
+//	public ResponseEntity<Hotel> ViewHotelByAddressHandler(@PathVariable("hotelAddress") String hotelAddress,@RequestParam("Key")String key){
+//		Hotel hotel = hService.ViewHotelByAddress(hotelAddress,key);
+//		return new ResponseEntity<Hotel>(hotel, HttpStatus.OK);
+//	}	
 
 	@GetMapping("/hotels")
 	public ResponseEntity<List<Hotel>> ViewAllHotelHandler(@RequestParam("Key")String key){

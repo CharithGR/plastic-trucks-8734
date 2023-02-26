@@ -41,22 +41,22 @@ public class Route {
 	private String pickupPoint;
 	
 //	@NotNull(message = "field cannot be empty")
-	private double fare;		
+//	private double fare;		
 	
 //	@NotNull(message = "field cannot be empty")
-//	@Future
-//	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
+	@Future
+	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime departureTime;
 	
 //	@NotNull(message = "field cannot be empty")
-//	@Future
-//	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
+	@Future
+	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
 	private LocalDateTime arrivalTime; 
 	
 //	@NotNull(message = "field cannot be empty")
 //	@Future
 //	@JsonFormat(pattern = "dd-MMM-yyyy HH:mm:ss")
-	private LocalDateTime doj; 
+//	private LocalDateTime doj; 
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "routeOfBus")
 	private Bus BusRoute;

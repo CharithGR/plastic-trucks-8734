@@ -42,8 +42,8 @@ public class Customer {
 	private String customerPassword;
 	
 //	@NotNull(message = "field cannot be empty")
-//	@Column(unique = true)
-//	@Email(message = "Enter a valid email")
+	@Column(unique = true)
+	@Email(message = "Enter a valid email")
 	private String email;
 	
 //	@NotNull(message = "field cannot be empty")
@@ -61,7 +61,7 @@ public class Customer {
 	private List<Feedback> listOfFeedback = new ArrayList<>();
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookingUser")
+	@OneToMany(mappedBy = "bookingUser")
 	private List<Booking> listOfBookingOfCustomer=new ArrayList<>();
 	
 	

@@ -113,13 +113,8 @@ public class AdminServiceImpl implements AdminService {
 				if(customerLogedIn.isPresent()) {
 					sessionD.delete(customerLogedIn.get());
 				}
-					
-					
 					customerD.delete(customer);				
 					return "Account Deleted";
-					
-		
-					
 	}
 	
 

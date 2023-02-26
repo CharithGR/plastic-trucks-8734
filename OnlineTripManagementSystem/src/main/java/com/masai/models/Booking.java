@@ -45,11 +45,11 @@ public class Booking {
 	
 //	@NotNull(message = "field cannot be empty")
 //	@PastOrPresent
-//	@JsonFormat(pattern = "dd/mm/yyyy")
-	private LocalDate bookingDate;
+	@JsonFormat(pattern = "dd/mm/yyyy")
+	private LocalDate bookingDate=LocalDate.now();
 	
-//	@Min(1)
-//	@Max(15)
+	@Min(1)
+	@Max(15)
 	private Integer noOfTickets;
 	
 	
